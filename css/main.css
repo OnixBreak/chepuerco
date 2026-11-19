@@ -1,0 +1,269 @@
+
+:root {
+    --texto: #ffffff;
+    --fondo: #1a1a1a;
+    --footer: #111817;
+    --boton: #139494;
+    --boton-hover: #176d66;
+    --acento: #55d8ba;
+}
+
+/* Configuración general */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: monospace;
+    font-weight: bolder;
+}
+
+/* Hero */
+
+.hero {
+    width: 90%;
+    max-width: 850px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 40px 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.hero {
+    visibility: hidden;
+}
+
+.hero.loaded {
+    visibility: visible;
+}
+
+/* Título */
+
+h1 {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    letter-spacing: 3px;
+    margin: 0 0 25px;
+}
+.brand-subtitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+.brand-subtitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: -15px;
+    margin-bottom: 15px;
+
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.brand-subtitle.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.brand-subtitle span {
+    color: var(--acento);
+    font-size: .75rem;
+    letter-spacing: 5px;
+    font-weight: normal;
+}
+
+.brand-line {
+    width: clamp(100px, 35vw, 350px);
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--acento),
+        transparent
+    );
+}
+
+/* Logotipo */
+
+.glitch-container {
+    position: relative;
+    width: clamp(130px, 28vw, 180px);
+    margin: 10px 0 30px;
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.glitch-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.glitch-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.glitch-layer {
+    position: absolute;
+    inset: 0;
+    background-image: url("../img/logonix.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.glitch-container.active .glitch-layer {
+    opacity: 1;
+    animation: distortion 0.25s steps(2) forwards;
+}
+
+/* Animación glitch */
+
+@keyframes distortion {
+    0% {
+        clip-path: inset(10% 0 80% 0);
+        transform: translateX(-15px);
+        filter: hue-rotate(90deg);
+    }
+
+    25% {
+        clip-path: inset(40% 0 45% 0);
+        transform: translateX(15px);
+    }
+
+    50% {
+        clip-path: inset(70% 0 15% 0);
+        transform: translateX(-10px);
+        filter: hue-rotate(-90deg);
+    }
+
+    75% {
+        clip-path: inset(20% 0 65% 0);
+        transform: translateX(10px);
+    }
+
+    100% {
+        clip-path: inset(0);
+        transform: translateX(0);
+        opacity: 0;
+    }
+}
+
+/* Máquina de escribir */
+
+#typewriter {
+    width: 100%;
+    min-height: 2em;
+    margin: 0;
+    text-align: center;
+    font-size: clamp(.9rem, 2.5vw, 1.2rem);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+#typewriter::after {
+    content: "|";
+    display: inline-block;
+    margin-left: 5px;
+    color: var(--acento);
+    animation: cursorBlink .7s infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 50% {
+        opacity: 1;
+    }
+
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+/* enlaces*/
+
+.hero-links {
+    margin-top: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.hero-links a {
+    opacity: 0;
+    text-decoration: none;
+    color: var(--acento);
+    background-color: #123b35;
+    border: 1px solid #1b6658;
+
+    padding: 11px 20px;
+    border-radius: 8px;
+
+    transform: translateY(15px);
+    pointer-events: none;
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease,
+        background-color .3s ease,
+        color .3s ease;
+}
+
+.hero-links a.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.hero-links a:hover {
+    background-color: var(--boton-hover);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* responsive */
+
+@media (max-width: 480px) {
+    .hero {
+        width: 95%;
+        padding: 30px 10px;
+    }
+
+    .hero-links {
+        gap: 12px;
+    }
+
+    .hero-links a {
+        padding: 10px 15px;
+        font-size: .85rem;
+    }
+}
