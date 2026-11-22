@@ -106,7 +106,7 @@ section {
 
 /* Hero */
 .hero-container{
-   background: url(/img/background_vista2.jpg);
+   background: url("../img/background_vista2.jpg");
    background-position: bottom;
     background-position: fixed;
     background-size: cover;
