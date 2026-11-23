@@ -11,8 +11,22 @@ document.querySelectorAll('#tabs button').forEach(function (btn) {
     });
   });
 });
+let lastScrollTop = 0;
+const nav = document.querySelector("nav");
 
+window.addEventListener("scroll", () => {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
+  if (scrollTop > lastScrollTop) {
+    // Bajando
+    nav.style.top = "-100px";
+  } else {
+    // Subiendo
+    nav.style.top = "0";
+  }
+
+  lastScrollTop = scrollTop;
+});
 
 /* Sucursales */
 document.querySelectorAll('.suc').forEach(function (suc) {
