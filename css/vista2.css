@@ -831,6 +831,48 @@ footer p {
     animation-iteration-count: 1 !important;
   }
 }
+/* Corrección de desbordamiento en móviles */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+footer {
+  width: 100%;
+  max-width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+footer h2 {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.soc {
+  width: 100%;
+  max-width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.soc a {
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .soc {
+    gap: 8px;
+  }
+
+  .soc a {
+    padding: 9px 12px;
+    font-size: 0.85rem;
+  }
+}
 .watermarkonix{
   display: inline;
   width: 2%;
