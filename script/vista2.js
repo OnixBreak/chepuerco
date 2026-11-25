@@ -1,32 +1,43 @@
-/* Che Puerco · Vista 2 (independiente) */
+
+/* Che Puerco · Vista 2 */
 
 /* Pestañas del menú */
-document.querySelectorAll('#tabs button').forEach(function (btn) {
+const tabButtons = document.querySelectorAll('#tabs button');
+const menus = document.querySelectorAll('.menu');
+
+tabButtons.forEach(function (btn) {
   btn.addEventListener('click', function () {
-    document.querySelectorAll('#tabs button').forEach(function (b) {
-      b.setAttribute('aria-selected', b === btn);
+    tabButtons.forEach(function (button) {
+      button.setAttribute('aria-selected', button === btn ? 'true' : 'false');
     });
-    document.querySelectorAll('.menu').forEach(function (m) {
-      m.hidden = m.dataset.cat !== btn.dataset.cat;
+
+    menus.forEach(function (menu) {
+      menu.hidden = menu.dataset.cat !== btn.dataset.cat;
     });
   });
 });
+
+
+/* Ocultar y mostrar navegación al hacer scroll */
 let lastScrollTop = 0;
-const nav = document.querySelector("nav");
+const nav = document.querySelector('nav');
 
-window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+if (nav) {
+  window.addEventListener('scroll', function () {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-  if (scrollTop > lastScrollTop) {
-    // Bajando
-    nav.style.top = "-100px";
-  } else {
-    // Subiendo
-    nav.style.top = "0";
-  }
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+      // Bajando
+      nav.style.top = '-100px';
+    } else {
+      // Subiendo
+      nav.style.top = '0';
+    }
 
-  lastScrollTop = scrollTop;
-});
+    lastScrollTop = Math.max(0, scrollTop);
+  }, { passive: true });
+}
+
 
 /* Sucursales */
 document.querySelectorAll('.suc').forEach(function (suc) {
@@ -49,6 +60,39 @@ document.querySelectorAll('[data-share]').forEach(function (btn) {
       navigator.clipboard.writeText(btn.dataset.url).then(function () { alert('Enlace copiado'); });
     } else {
       prompt('Copia el enlace:', btn.dataset.url);
+    }
+  });
+});
+
+
+/* Compartir ruta */
+document.querySelectorAll('[data-share]').forEach(function (btn) {
+  btn.addEventListener('click', async function () {
+    const url = btn.dataset.url;
+
+    if (!url) return;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Che Puerco',
+          text: 'Cómo llegar a Che Puerco',
+          url: url
+        });
+      } catch (error) {
+        // El usuario canceló o no se pudo compartir.
+      }
+
+    } else if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(url);
+        alert('Enlace copiado');
+      } catch (error) {
+        prompt('Copia el enlace:', url);
+      }
+
+    } else {
+      prompt('Copia el enlace:', url);
     }
   });
 });
