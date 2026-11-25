@@ -1,8 +1,10 @@
 /* Che Puerco · Vista 2 */
 
 @font-face {
-  font-family: chepuerco ;
-  src: url(/fonts/che.ttf);
+  font-family: 'chepuerco';
+  src: url('../fonts/che.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 :root {
   color-scheme: dark;
@@ -48,7 +50,7 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-family:"chepuerco";
+  font-family: 'chepuerco', sans-serif;
   line-height: 1.05;
   text-transform: uppercase;
 }
